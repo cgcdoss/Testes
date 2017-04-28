@@ -1,4 +1,4 @@
-package iText;
+package ideias.pdf.iText;
  
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

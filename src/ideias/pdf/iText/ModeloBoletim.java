@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Integração;
+package ideias.pdf.iText;
 
-import iText.*;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -28,7 +27,7 @@ import javax.swing.JOptionPane;
  *
  * @author Cássio Gabriel
  */
-public class BoletimIntegracao {
+public class ModeloBoletim {
 
     public static void main(String[] args) throws Exception {
         Document doc = null;
@@ -173,7 +172,7 @@ public class BoletimIntegracao {
             int j = 0;
             while (j < 4) {
                 j++;
-                PdfPCell cell11 = new PdfPCell(new Phrase(String.format("Disciplina " + j)));
+                PdfPCell cell11 = new PdfPCell(new Phrase(String.format(j + "ª Disciplina")));
                 cell11.setColspan(4);
                 table3.addCell(cell11);
                 for (int g = 0; g < 6; g++) { //Aqui começa o lançamento das notas

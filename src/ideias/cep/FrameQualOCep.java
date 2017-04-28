@@ -21,7 +21,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
      */
     public FrameQualOCep() {
         initComponents();
-        labelIcon.setVisible(false);
     }
 
     /**
@@ -34,7 +33,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        labelIcon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -53,8 +51,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        labelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ideias/cep/7ceVL.gif"))); // NOI18N
 
         jLabel1.setText("Endereço");
 
@@ -83,9 +79,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(labelIcon))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -129,9 +122,7 @@ public class FrameQualOCep extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tfUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(labelIcon)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,7 +163,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
                 tfCidade.setText(cidade);
                 tfUf.setText(uf);
 
-                labelIcon.setVisible(false);
                 tfCep.setText("");
                 tfCep.requestFocus();
             } catch (IOException ex) {
@@ -186,7 +176,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
         int i = tfCep.getCaretPosition();
         System.out.println(i);
         if (tfCep.getCaretPosition() == 8) {
-            labelIcon.setVisible(true);
             QualOCep qoc = new QualOCep();
             String cep = tfCep.getText();
             try {
@@ -207,7 +196,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
                 tfCidade.setText(cidade);
                 tfUf.setText(uf);
 
-                labelIcon.setVisible(false);
 
                 tfCep.requestFocus();
             } catch (IOException ex) {
@@ -258,7 +246,6 @@ public class FrameQualOCep extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelIcon;
     private javax.swing.JTextField tfBairro;
     private javax.swing.JTextField tfCep;
     private javax.swing.JTextField tfCidade;

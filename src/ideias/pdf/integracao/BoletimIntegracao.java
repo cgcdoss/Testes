@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package iText;
+package ideias.pdf.integracao;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -27,14 +27,14 @@ import javax.swing.JOptionPane;
  *
  * @author Cássio Gabriel
  */
-public class ModeloHistorico {
+public class BoletimIntegracao {
 
     public static void main(String[] args) throws Exception {
         Document doc = null;
         OutputStream os = null;
         try {
             doc = new Document(PageSize.A4, 72, 72, 72, 72); //1-?, 2-?, 3-Cima, 4-?
-            os = new FileOutputStream("Historico.pdf");
+            os = new FileOutputStream("Boletim.pdf");
 
             PdfWriter.getInstance(doc, os);
             doc.open();
@@ -44,7 +44,7 @@ public class ModeloHistorico {
             Font f2 = new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL); //Fonte Normal
             Font f3 = new Font(FontFamily.UNDEFINED, 12, Font.BOLD); //Fonte Normal
 //            doc.add(new Paragraph("HISTÓRICO ESCOLAR", f)); //Outra maneira de criar um parágrafo
-            Paragraph p1 = new Paragraph("HISTÓRICO ESCOLAR", f); //Criação de um parágrafo utilizando uma fonte criada (f)
+            Paragraph p1 = new Paragraph("BOLETIM ESCOLAR", f); //Criação de um parágrafo utilizando uma fonte criada (f)
             p1.setAlignment(Element.ALIGN_CENTER); //Alinhamento
             p1.setLeading(30, 0); //Espaço entre linhas
             doc.add(p1); //Adicionando parágrafo ao documento
@@ -86,6 +86,7 @@ public class ModeloHistorico {
 
 //            for (int i = 0; i < 8; i++) {
 //            table.completeRow(); //Exibe uma linha, mesmo que inocompleta
+//            Tabela 2
             PdfPTable table2 = new PdfPTable(20);
             table2.setSpacingBefore(10);
             table2.setSpacingAfter(10);
@@ -129,7 +130,8 @@ public class ModeloHistorico {
             cell10.setColspan(18);
             table2.addCell(cell10);
 
-            PdfPTable table3 = new PdfPTable(20);
+//            Tabela 3
+            PdfPTable table3 = new PdfPTable(22);
             table3.setSpacingBefore(10);
             table3.setSpacingAfter(10);
             table3.setWidthPercentage(100);
@@ -139,43 +141,53 @@ public class ModeloHistorico {
             p5.setAlignment(Element.ALIGN_CENTER);
             header3.setBackgroundColor(BaseColor.LIGHT_GRAY);
             header3.addElement(p5);
-            header3.setColspan(20);
+            header3.setColspan(22);
             table3.addCell(header3);
 
-            PdfPCell cell12 = new PdfPCell(new Phrase("Disciplinas", f3));
-            cell12.setRotation(90);
-            cell12.setColspan(2);
-            cell12.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            PdfPCell cell12 = new PdfPCell();
+            cell12.addElement(new Phrase("Avaliações", f3));
+            cell12.setColspan(4);
             table3.addCell(cell12);
 
+//            Aqui complica...
+//            Aqui é montado o subcabeçalho da 3º tabela
             int i = 1;
-            while (i < 18) {
-                PdfPCell cell
-                        = new PdfPCell(new Phrase(String.format("Disciplina %s", i))); //String.format faz com que o "%s" receba o "i"
-                cell.setRotation(90);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            while (i < 7) {
+                PdfPCell cell;
+                if (i == 3) {
+                    cell = new PdfPCell(new Phrase(String.format("1º Recup.", i))); //String.format faz com que o "%s" receba o "i"
+                } else if (i == 6) {
+                    cell = new PdfPCell(new Phrase(String.format("2º Recup.", i))); //String.format faz com que o "%s" receba o "i"
+                } else if (i == 4 | i == 5) {
+                    cell = new PdfPCell(new Phrase(String.format("%sº Aval", i - 1))); //String.format faz com que o "%s" receba o "i"
+                } else {
+                    cell = new PdfPCell(new Phrase(String.format("%sº Aval", i))); //String.format faz com que o "%s" receba o "i"
+                }
+                cell.setColspan(3);
                 table3.addCell(cell);
                 i++;
-//                System.out.println(i);
             }
-            cell12 = new PdfPCell(new Phrase("Frequência", f3));
-            cell12.setRotation(90);
-            cell12.setVerticalAlignment(Element.ALIGN_MIDDLE);
-            table3.addCell(cell12);
 
+//            Aqui é montado o corpo da tabela
             int j = 0;
             while (j < 4) {
                 j++;
-                PdfPCell cell11 = new PdfPCell(new Phrase(j + "ª Série"));
-                cell11.setColspan(2);
+                PdfPCell cell11 = new PdfPCell(new Phrase(String.format("Disciplina " + j)));
+                cell11.setColspan(4);
                 table3.addCell(cell11);
-                table3.completeRow();
-
+                for (int g = 0; g < 6; g++) { //Aqui começa o lançamento das notas
+                    int calc = 4 + (int) (Math.random() * (10 - 4));
+                    cell2 = new PdfPCell(new Phrase(String.valueOf(calc)));
+                    cell2.setColspan(3);
+                    System.out.println(calc);
+                    table3.addCell(cell2);
+                }
             }
 
+//            Aqui é montado o "rodapé"
             cell12 = new PdfPCell(new Phrase("Obs.: "));
             cell12.setRowspan(4);
-            cell12.setColspan(2);
+            cell12.setColspan(4);
             cell12.setVerticalAlignment(Element.ALIGN_MIDDLE);
             table3.addCell(cell12);
 
@@ -201,10 +213,9 @@ public class ModeloHistorico {
         }
 //        int dec = JOptionPane.showConfirmDialog(null, "Deseja abrir o arquivo?");
 //        if (dec == 0) {
-        java.awt.Desktop.getDesktop().open(new File("Historico.pdf"));
+        java.awt.Desktop.getDesktop().open(new File("Boletim.pdf"));
 //        } else{
 //            JOptionPane.showMessageDialog(null, "Ok!");
 //        }
-
     }
 }
