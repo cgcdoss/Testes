@@ -1,0 +1,7 @@
+{
+	"driver":"com.mysql.jdbc.Driver",
+	"banco":"conquista2",
+	"caminho":"jdbc:mysql://localhost/",
+	"usuario":"root",
+	"senha":"040697"
+}
