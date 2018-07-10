@@ -1,5 +1,5 @@
 //@autor: Cássio Gabriel
-package ideiais.nome;
+package ideias.outro.nome;
 
 import javax.swing.JOptionPane;
 

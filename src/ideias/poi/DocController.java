@@ -103,6 +103,25 @@ public class DocController {
     }
 
     public XWPFDocument substituiDoc(String textoAnterior, String textoPosterior, XWPFDocument doc) {
+        try {
+            doc.getParagraphs().stream().map((p) -> p.getRuns()).filter(
+                    (runs) -> (runs != null)).forEachOrdered(
+                            (runs) -> {
+                                runs.forEach((r) -> {
+                                    String text = r.getText(0);
+                                    if (text != null && text.contains(textoAnterior)) {
+                                        text = text.replace(textoAnterior, textoPosterior);
+                                        r.setText(text, 0);
+                                    }
+                                });
+                            });
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return doc;
+    }
+
+    public XWPFDocument substituiDocObsoleto(String textoAnterior, String textoPosterior, XWPFDocument doc) {
 //        XWPFDocument doc;
         try {
 //            doc = new XWPFDocument(OPCPackage.open("teste.docx"));
@@ -120,21 +139,21 @@ public class DocController {
                     }
                 }
             }
-//            for (XWPFTable tbl : doc.getTables()) {
-//                for (XWPFTableRow row : tbl.getRows()) {
-//                    for (XWPFTableCell cell : row.getTableCells()) {
-//                        for (XWPFParagraph p : cell.getParagraphs()) {
-//                            for (XWPFRun r : p.getRuns()) {
-//                                String text = r.getText(0);
-//                                if (text != null && text.contains("needle")) {
-//                                    text = text.replace("needle", "haystack");
-//                                    r.setText(text, 0);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            for (XWPFTable tbl : doc.getTables()) {
+                for (XWPFTableRow row : tbl.getRows()) {
+                    for (XWPFTableCell cell : row.getTableCells()) {
+                        for (XWPFParagraph p : cell.getParagraphs()) {
+                            for (XWPFRun r : p.getRuns()) {
+                                String text = r.getText(0);
+                                if (text != null && text.contains("needle")) {
+                                    text = text.replace("needle", "haystack");
+                                    r.setText(text, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 //                doc.write(new FileOutputStream("teste-output.docx"));
         } catch (Exception ex) {
 
